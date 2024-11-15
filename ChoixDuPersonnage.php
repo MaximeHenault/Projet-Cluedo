@@ -24,7 +24,7 @@
         echo "<ul>";
         while ($adj = $result->fetchArray(SQLITE3_ASSOC)) {
             // Création du lien avec l'ID du personnage dans l'URL
-            echo '<li><a href="Hall.php?id=' . $adj['id_personnage'] . '">' . htmlspecialchars($adj['nom_personnage']) . '</a></li>';
+            echo '<li><a href="test.php?id=' . $adj['id_personnage'] . '">' . htmlspecialchars($adj['nom_personnage']) . '</a></li>';
         }
         echo "</ul>";
 
