@@ -6,7 +6,7 @@
         <link rel="stylesheet">
     </head>
     <body>
-        <h1>Bienvenue sur le jeu</h1>
+        <h1>Cluedo</h1>
         <p>Choix du personnages :</p>
 
         <?php 
