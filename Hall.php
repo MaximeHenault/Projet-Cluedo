@@ -1,71 +1,92 @@
 <!DOCTYPE html>
 <html lang="fr-FR">
-    <head>
-        <title>Projet Cluedo</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet">
-    </head>
-    <body>
-        <h1>Bienvenue dans le Hall</h1>
-        
-        <?php
-        if (isset($_GET['id'])) {
-            // Récupérer et sécuriser l'ID depuis l'URL
-            $id = intval($_GET['id']);
+<head>
+    <title>Projet Cluedo</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="Hall.css">
+</head>
+<body>
+    <h1>Bienvenue dans le Hall</h1>
 
-            // Chemin vers la base de données SQLite
-            $bdd_fichier = 'cluedo.db';
-            $sqlite = new SQLite3($bdd_fichier);
+    <?php
+    if (isset($_GET['id'])) {
+        // Récupérer et sécuriser l'ID depuis l'URL
+        $id = intval($_GET['id']);
 
-            // Préparer une requête sécurisée pour récupérer le nom du personnage
-            $sql = 'SELECT nom_personnage FROM personnages WHERE id_personnage = :id';
-            $requete = $sqlite->prepare($sql); // Initialiser $requete
-            $requete->bindValue(':id', $id, SQLITE3_INTEGER);
-            $result = $requete->execute();
+        // Chemin vers la base de données SQLite
+        $bdd_fichier = 'cluedo.db';
+        $sqlite = new SQLite3($bdd_fichier);
 
-            // Afficher le résultat s'il existe
-            if ($adj = $result->fetchArray(SQLITE3_ASSOC)) {
-                echo "<h2>Vous avez choisi : " . $adj['nom_personnage'] . "</h2>";
-            }
+        // Préparer une requête sécurisée pour récupérer le nom du personnage
+        $sql = 'SELECT nom_personnage FROM personnages WHERE id_personnage = :id';
+        $requete = $sqlite->prepare($sql);
+        $requete->bindValue(':id', $id, SQLITE3_INTEGER);
+        $result = $requete->execute();
 
-            // Créer l'arme aléatoire et l'afficher
-            $arme = rand(1, 6);
-            $sql = 'SELECT nom_arme FROM armes WHERE id_arme = :arme';
-            $requete = $sqlite->prepare($sql);
-            $requete->bindValue(':arme', $arme, SQLITE3_INTEGER);
-            $result = $requete->execute();
-
-            if ($adj = $result->fetchArray(SQLITE3_ASSOC)) {
-                echo "<p>Arme aléatoire : " . $adj['nom_arme'] . "</p>";
-            }
-
-            // Créer le personnage aléatoire et l'afficher 
-            $personnage = rand(1, 6);  
-            $sql = 'SELECT nom_personnage FROM personnages WHERE id_personnage = :personnage';
-            $requete = $sqlite->prepare($sql);
-            $requete->bindValue(':personnage', $personnage, SQLITE3_INTEGER);
-            $result = $requete->execute();
-
-            if ($adj = $result->fetchArray(SQLITE3_ASSOC)) {
-                echo "<p>Personnage aléatoire : " . $adj['nom_personnage'] . "</p>";
-            }
-
-            // Créer la pièce aléatoire et l'afficher
-            $piece = rand(1, 8);
-            $sql = 'SELECT nom_piece FROM pieces WHERE id_piece = :piece';
-            $requete = $sqlite->prepare($sql);
-            $requete->bindValue(':piece', $piece, SQLITE3_INTEGER);
-            $result = $requete->execute();
-
-            if ($adj = $result->fetchArray(SQLITE3_ASSOC)) {
-                echo "<p>Salle aléatoire : " . $adj['nom_piece'] . "</p>";
-            }
-
-            // Fermer la connexion à la base de données
-            $sqlite->close();
+        // Afficher le résultat s'il existe
+        if ($adj = $result->fetchArray(SQLITE3_ASSOC)) {
+            echo "<h2>Vous avez choisi : " . htmlspecialchars($adj['nom_personnage']) . "</h2>";
         }
+
+        // Créer le personnage aléatoire
+        $personnage = rand(1, 6);
+
+        // Créer l'arme aléatoire
+        $arme = rand(1, 6);
+
+        // Créer la pièce aléatoire
+        $piece = rand(1, 8);
+
+    }
+    ?>
+
+    <form method="POST">
+        <!-- Menu déroulant pour les personnages -->
+        <?php
+        $sql = 'SELECT nom_personnage, id_personnage FROM personnages';
+        $requete = $sqlite->prepare($sql);
+        $result = $requete->execute();
+
+        echo '<label for="personnage">Je pense que c\'est </label>';
+        echo '<select name="personnage" id="personnage">';
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            echo '<option value="' . $row['id_personnage'] . '">' . htmlspecialchars($row['nom_personnage']) . '</option>';
+        }
+        echo '</select>';
         ?>
 
-        <a href="test.php">Retour à test</a>
-    </body>
+        <!-- Menu déroulant pour les armes -->
+        <?php
+        $sql = 'SELECT nom_arme, id_arme FROM armes';
+        $requete = $sqlite->prepare($sql);
+        $result = $requete->execute();
+
+        echo '<label for="arme"> avec </label>';
+        echo '<select name="arme" id="arme">';
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            echo '<option value="' . $row['id_arme'] . '">' . htmlspecialchars($row['nom_arme']) . '</option>';
+        }
+        echo '</select>';
+        ?>
+
+        <!-- Menu déroulant pour les salles -->
+        <?php
+        $sql = 'SELECT nom_piece, id_piece FROM pieces';
+        $requete = $sqlite->prepare($sql);
+        $result = $requete->execute();
+
+        echo '<label for="salle"> dans </label>';
+        echo '<select name="salle" id="salle">';
+        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
+            echo '<option value="' . $row['id_piece'] . '">' . htmlspecialchars($row['nom_piece']) . '</option>';
+        }
+        echo '</select><br><br>';
+        ?>
+
+        <!-- Bouton pour soumettre le formulaire -->
+        <button type="submit">Valider</button>
+    </form>
+
+    <a href="test.php">Retour à l'accueil</a>
+</body>
 </html>
