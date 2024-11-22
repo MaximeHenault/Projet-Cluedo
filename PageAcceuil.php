@@ -23,7 +23,7 @@
             même si vous avez fait trois erreurs. Vous pourrez noter vos erreurs pour ne pas les refaire.
         </p>
 
-        <button><a href="test.php">Lancer une partie</a></button>
+        <button><a href="ChoixDuPersonnage.php">Lancer une partie</a></button>
 
         <h3>Inventaire :</h3>
         <?php 
