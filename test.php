@@ -9,9 +9,8 @@ session_start();
     <link rel="stylesheet" href="Hall.css">
 </head>
 <body>
-    <h1>Bienvenue dans le Hall</h1>
-
     <?php
+    
     if (isset($_GET['id'])) {
         $id = intval($_GET['id']);
         $bdd_fichier = 'cluedo.db';
@@ -27,55 +26,44 @@ session_start();
         }
     }
 
-    // Générer le personnage aléatoire (une seule fois par session)
-    if (!isset($_SESSION['personnagealeatoire'])) {
-        $_SESSION['personnagealeatoire'] = rand(1, 6);
-    }
-    $personnagealeatoire = $_SESSION['personnagealeatoire'];
+    if (isset($_GET['salle'])){
+        $piece = $_GET['salle'];
+        if ($piece == "Véranda" or $piece == "Bibliothèque" or $piece == "Salle à manger" or $piece == "Cuisine" or $piece == "Salle de billard"){
+            echo '<h1>Vous êtes à la '. $piece .'</h1>';
+        }
+        else{
+            echo '<h1>Vous êtes au '. $piece .'</h1>';
+        }
+            
+            $sql = 'SELECT DISTINCT p2.nom_piece FROM pieces p1 JOIN portes pr ON p1.id_piece = pr.id_piece1 OR p1.id_piece = pr.id_piece2 JOIN pieces p2 ON (p2.id_piece = pr.id_piece1 AND p2.id_piece != p1.id_piece) OR (p2.id_piece = pr.id_piece2 AND p2.id_piece != p1.id_piece) WHERE p1.nom_piece = :salle;';
+            $requete = $sqlite->prepare($sql);
+            $requete->bindValue(':salle', $piece, SQLITE3_TEXT);
+            $result = $requete->execute();
+            
+            while ($adj = $result->fetchArray(SQLITE3_ASSOC)) {    
+                echo '<li><a href="test.php?id=' . htmlspecialchars($id) . '&salle=' . htmlspecialchars($adj['nom_piece']) . '">' . htmlspecialchars($adj['nom_piece']) . '</a></li>';
+            } 
+    }    
 
-    $sql = 'SELECT nom_personnage FROM personnages WHERE id_personnage = :personnagealeatoire';
-    $requete = $sqlite->prepare($sql);
-    $requete->bindValue(':personnagealeatoire', $personnagealeatoire, SQLITE3_INTEGER);
-    $result = $requete->execute();
 
-    if ($adj = $result->fetchArray(SQLITE3_ASSOC)) {
-        echo "<p>Personnage aléatoire : " . htmlspecialchars($adj['nom_personnage']) . "</p>";
-    }
+    
     ?>
 
+    <br>
+
+    <!-- Bouton pour réinitialiser la session et revenir au menu -->
     <form method="POST">
-        <?php
-        // Menu pour sélectionner un personnage
-        $sql = 'SELECT nom_personnage, id_personnage FROM personnages';
-        $requete = $sqlite->prepare($sql);
-        $result = $requete->execute();
-
-        echo '<label for="personnage">Je pense que c\'est </label>';
-        echo '<select name="personnage" id="personnage">';
-        while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
-            echo '<option value="' . $row['id_personnage'] . '">' . htmlspecialchars($row['nom_personnage']) . '</option>';
-        }
-        echo '</select>';
-        ?>
-
-        <button type="submit">Valider</button>
+        <button type="submit" name="quitter">Retour à l'accueil</button>
     </form>
 
     <?php
-    if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-        $personnage_id = isset($_POST['personnage']) ? (int)$_POST['personnage'] : null;
-
-        echo "<p>Personnage sélectionné (ID) : " . $personnage_id . "</p>";
-        echo "<p>Personnage aléatoire généré : " . $personnagealeatoire . "</p>";
-
-        if ($_SESSION['personnagealeatoire'] == $personnage_id) {
-            echo "<p>Bravo, vous avez deviné le bon personnage !</p>";
-        } else {
-            echo "<p>Désolé, ce n'est pas le bon personnage. Essayez à nouveau !</p>";
-        }
+    // Si l'utilisateur clique sur "Retour à l'accueil", détruire la session
+    if (isset($_POST['quitter'])) {
+        session_destroy();  // Détruire la session
+        header("Location: ChoixDuPersonnage.php");  // Rediriger vers la page d'accueil après avoir détruit la session
+        exit();  // Assurer que le script s'arrête après la redirection
     }
     ?>
 
-    <a href="ChoixDuPersonnage.php">Retour à l'accueil</a>
 </body>
 </html>
