@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
         <title>Projet Cluedo</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet">
     </head>
     <body>
         <h1>Cluedo</h1>
@@ -23,8 +23,8 @@
         // Affichage de la liste des personnages avec liens
         echo "<ul>";
         while ($adj = $result->fetchArray(SQLITE3_ASSOC)) {
-            // Création du lien avec l'ID du personnage dans l'URL
-            echo '<li><a href="test.php?id=' . $adj['id_personnage'] . '">' . htmlspecialchars($adj['nom_personnage']) . '</a></li>';
+            // Création du lien avec l'ID du personnage et la salle dans l'URL
+            echo '<li><a href="test.php?id=' . $adj['id_personnage'] . '&salle=Hall">' . htmlspecialchars($adj['nom_personnage']) . '</a></li>';
         }
         echo "</ul>";
 
