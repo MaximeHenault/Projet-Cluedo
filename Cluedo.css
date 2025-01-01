@@ -1,1 +1,215 @@
 
+@font-face {
+    font-family: 'Edwardian Script ITC';
+    src: url('edwardianscriptitc.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+* {
+    font-family: "Edwardian Script ITC", cursive;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    overflow: hidden;
+}
+
+#Accueil{
+    display: none;
+    height: 100vh;
+    background-image: url("CluedoFond.webp");
+    background-size : cover; 
+}
+
+p, h2, ul{
+    margin: 0.2em;
+    line-height: 1.2;
+}
+
+/* Conteneur pour les boutons */
+.button-container {
+    gap: 20px;
+}
+
+/* Style des boutons cliquables */
+.clickable-box{
+    width: 6em;
+    height: 3em;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5em ;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s; 
+}
+
+.clickable-box:hover {
+    background-color: #674358;
+    transform: scale(1.05);
+}
+
+/* Style des fenêtres modales */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+}
+
+.modal-content {
+    background-color: beige;
+    padding: 1em;
+    border-radius: 0.5em;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    font-size: 1.70em;
+    width: 30em;
+    height : 90vh;
+    font-weight: 600;
+    opacity : 0.7;
+}
+
+.close-btn {
+    background-color: black;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.close-btn:hover {
+    background-color: #674358;
+}
+
+#openModal1{
+    position: absolute;
+    top: 9em;
+    left: 5em;
+    font-size : 3em;
+    font-weight: 500;
+}
+
+#startGameButton{
+    position: absolute;
+    background-color: transparent;
+    top: 9em;
+    left: 28em;
+    font-size : 3em;
+    border-color: transparent;
+    width: 6em;
+    height: 3em;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5em ;
+    cursor: pointer;
+    transition: transform 0.2s, background-color 0.2s; 
+}
+
+#startGameButton:hover{
+    background-color: #674358;
+}
+
+#cluedo{
+    position: absolute;
+    top: 2.1em; 
+    left: 6.1em;
+    font-size : 8em;
+    font-weight: 700;
+}
+
+#Personnage {
+    display: block;
+    height: 100vh;
+    background-image: url("CluedoFond2.webp");
+    background-size : cover; 
+}
+
+.personnage {
+    display: block;
+    position: absolute;
+    top: 15em;
+    width: 12em; /* Largeur du bouton */
+    height: 37em; /* Hauteur du bouton */
+    background-position: center; /* Centre l'image */
+    background-repeat: no-repeat; /* Empêche la répétition de l'image */
+    text-decoration: none; /* Supprime le soulignement du lien */
+    border-radius: 10px; /* Optionnel : arrondi des coins */
+    cursor: pointer;
+}
+
+.personnage-1 {
+    background-image: url("MademoiselleRose.webp");
+    background-size : cover; 
+    left: 15em;
+}
+
+.personnage-2 {
+    background-image: url("ColonelMoutarde.png");
+    background-size : cover; 
+    left: 30em;
+}
+
+.personnage-3 {
+    background-image: url("ProfesseurViolet.png");
+    background-size : cover; 
+    left: 45em;
+}
+
+.personnage-4 {
+    background-image: url("MadameLeblanc.webp");
+    background-size : cover; 
+    left: 60em;
+}
+
+.personnage-5 {
+    background-image: url("MonsieurOlive.png");
+    background-size : cover; 
+    left: 75em;
+}
+
+.personnage-6 {
+    background-image: url("DocteurPervenche.webp");
+    background-size : cover; 
+    left: 90em;
+}
+
+.image-container {
+    position: relative;
+    width: 12em; 
+    height: 37em;
+    text-align: center;
+}
+
+.txtbtn {
+    position: absolute;
+    bottom: 10px; /* Positionne le texte à 10px du bas de l'image */
+    left: 50%;
+    transform: translateX(-50%); /* Centre le texte horizontalement */
+    color: white;
+    font-size: 1.5rem;
+    font-weight: bold;
+    background-color: rgba(0, 0, 0, 0.8); /* Fond semi-transparent pour le texte */
+    padding: 5px;
+    border-radius: 5px;
+}
+
+/* Optionnel : changer la couleur de l'image au survol */
+.personnage:hover {
+    opacity: 0.9;
+    transform: scale(1.2);
+}
