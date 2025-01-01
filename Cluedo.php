@@ -54,10 +54,31 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     $nom_personnage = htmlspecialchars($row['nom_personnage']); // Sécurisation
     $id_personnage = (int)$row['id_personnage']; // Sécurisation
 
+    if ($id_personnage == 1) {
+        $texteperso = "Mademoiselle Rose est une détective astucieuse, réputée pour sa capacité à résoudre les mystères les plus complexes. 
+        Son esprit vif et son regard perçant font d’elle une adversaire redoutable dans l’ombre de chaque enquête.";
+    } elseif ($id_personnage == 2) {
+        $texteperso = "Ancien militaire, le Colonel Moutarde est un homme de discipline et de stratégie. 
+        Bien qu'il semble réservé, son sens de la justice et ses secrets le rendent plus intrigant qu'il n'y paraît.";
+    } elseif ($id_personnage == 3) {
+        $texteperso = "Le Professeur Violet est un intellectuel mystérieux, passionné par les sciences et les théories complexes. 
+        Son esprit brillant cache parfois des idées qui frôlent la folie, mais il reste un maître de l’énigme.";
+    } elseif ($id_personnage == 4) {
+        $texteperso = "Élégante et influente, Madame Leblanc est une femme de lettres respectée dans les hautes sphères de la société. 
+        Sous sa beauté et son charme, elle cache une volonté de fer et une habileté à manœuvrer dans l’ombre.";
+    } elseif ($id_personnage == 5) {
+        $texteperso = "Monsieur Olive est un gentleman discret et mystérieux. 
+        Derrière son apparence soignée, il entretient des liens secrets et mène une vie dont on ne connaît pas tous les détails.";
+    } elseif ($id_personnage == 6) {
+        $texteperso = "Le Docteur Pervenche est un médecin respecté, mais ses recherches peu conventionnelles et son obsession pour
+         la science révèlent une facette plus sombre et intrigante de sa personnalité.";
+    }
+
     // Génération des boutons avec une classe unique pour chaque personnage
     echo '<a class="personnage personnage-' . $id_personnage . '" href="Hall.php?id=' . $id_personnage . '&salle=Hall">
         <div class="image-container">    
-            <div class="txtbtn">' . $nom_personnage . '</div>
+            <div class="txtbtn-default">' . $nom_personnage . '</div> <!-- Texte par défaut -->
+            <div class="txtbtn-hover">' . $texteperso . '</div> <!-- Texte au survol -->
         </div>
     </a>';
 }
@@ -67,4 +88,3 @@ while ($row = $result->fetchArray(SQLITE3_ASSOC)) {
     <script src="test.js"></script>
 </body>
 </html>
-
