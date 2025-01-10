@@ -70,15 +70,15 @@ p, h2, ul{
 
 /* Style du contenue de la fenêtre modale */
 .modal-content {
-    background-color: beige;
-    padding: 0.5em;
+    background-color: white;
+    padding: 1em;
     border-radius: 0.5em;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    font-size: 2em;
+    font-size: 1.7em;
     width: 30em;
     height : 95vh;
     font-weight: 600;
-    opacity : 0.7;
+    opacity : 0.8;
 }
 
 /* Style d'un bouton */
@@ -111,7 +111,7 @@ p, h2, ul{
     position: absolute;
     background-color: transparent;
     top: 9em;
-    left: 28em;
+    left: 29em;
     font-size : 3em;
     border-color: transparent;
     width: 6em;
@@ -181,27 +181,27 @@ h1{
 
 /* Position des différents personnages */
 .personnage-1 {
-    left: 15em;
+    left: 16em;
 }
 
 .personnage-2 {
-    left: 30em;
+    left: 31em;
 }
 
 .personnage-3 {
-    left: 45em;
+    left: 45.5em;
 }
 
 .personnage-4 {
-    left: 60em;
+    left: 62em;
 }
 
 .personnage-5 {
-    left: 75em;
+    left: 77em;
 }
 
 .personnage-6 {
-    left: 90em;
+    left: 92em;
 }
 
 /* Nom du personnage en bas de l'image */
