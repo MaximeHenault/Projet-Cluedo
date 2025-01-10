@@ -82,6 +82,14 @@ form button:hover {
     background-color: #edc078;
 }
 
+p{
+    font-size: 1.3em;
+}
+
+h1{
+    font-size: 1.5em;
+}
+
 /* Modifie les propriétés des liens */
 a {
     font-size: 1.2em;
@@ -100,12 +108,11 @@ a:focus {
 
 /* Style des menus déroulants */
 select {
-    appearance: none; /* Supprimer la flèche native */
-    background-color: #976336; /* Fond blanc */
-    color: #F1C27D; /* Couleur du texte */
-    border: 2px solid black; /* Bordure grise */
-    padding: 10px 15px; /* Espacement interne */
-    border-radius: 5px; /* Coins arrondis */
-    font-size: 0.5em; /* Taille de police plus grande */
-    transition: all 0.3s ease; /* Animation lors du focus */
+    appearance: none; 
+    background-color: #976336; 
+    color: #F1C27D; 
+    border: 2px solid black;
+    padding: 10px 15px;
+    border-radius: 5px; 
+    font-size: 0.5em; 
 }
